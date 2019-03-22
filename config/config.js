@@ -17,6 +17,7 @@ module.exports = {
     logging: false
   },
   production: {
+    // eslint-disable-next-line camelcase
     use_env_variable: "JAWSDB_URL",
     dialect: "mysql"
   }
