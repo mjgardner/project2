@@ -26,5 +26,9 @@
     "eslint-plugin-prettier": "^2.6.2",
     "mocha": "^5.2.0",
     "prettier": "^1.13.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mjgardner/project2.git"
   }
 }
