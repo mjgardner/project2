@@ -5,9 +5,12 @@ module.exports = function(app) {
   app.get("/", function(req, res) {
     db.Project.findAll({}).then(function(dbProjects) {
       res.render("index", {
+        /*        ^this should be changed
+         with the new handlebars page form mooney when done :|
+         */
         msg: "Welcome!",
         projects: dbProjects
-        /*variables needed for handlebars
+        /*variables needed by projects for handlebars
         projects.name
         projects.description
         projects.pictureUrl
@@ -15,19 +18,9 @@ module.exports = function(app) {
         */
       });
     });
-    db.Comment.findAll({}).then(function(dbComment) {
-      res.render("index", {
-        comments: dbComment
-        /*variables needed for handlebars
-        comments.text
-        comments.rating
-        comments.authorEmail
-        */
-      });
-    });
   });
-
-  // Load example page and pass in an example by id
+  //send the comments section
+  //Load example page and pass in a Project and comments by id ;)
   app.get("/project/:id", function(req, res) {
     db.Project.findOne({
       where: {
@@ -39,8 +32,15 @@ module.exports = function(app) {
           id: req.params.id
         }
       }).then(function(dbComments) {
-        console.log(dbComments);
+        // console.log(dbComments);
         res.render("example", {
+          /*         ^this should be changed
+            with the new handlebars page form mooney when done :|
+            variables needed by comments for handlebars
+            comments.text
+            comments.rating
+            comments.authorEmail
+         */
           projects: dbProjects,
           comments: dbComments
         });
@@ -54,6 +54,6 @@ module.exports = function(app) {
   app.get("*", function(req, res) {
     res.render("404");
     //for debug
-    console.log("the page " + res);
+    // console.log("the page " + res);
   });
 };
