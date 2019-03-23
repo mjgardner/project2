@@ -27,6 +27,7 @@ module.exports = function(sequelize, DataTypes) {
 
   Comment.associate = function(models) {
     Comment.belongsTo(models.Project, {
+      onDelete: "cascade",
       foreignKey: {
         allowNull: false
       }
