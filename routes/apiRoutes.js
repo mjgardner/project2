@@ -55,7 +55,7 @@ module.exports = function(app) {
       if (project) {
         res.json(project);
       } else {
-        res.send(404);
+        res.sendStatus(404);
       }
     });
   });
