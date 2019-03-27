@@ -1,57 +1,51 @@
 var db = require("../models");
+/* eslint-env es6 */
+const Op = db.Sequelize.Op;
+
+var findDefaults = {
+  group: ["Project.id"],
+  attributes: [
+    "id",
+    "name",
+    "description",
+    "pictureUrl",
+    "visits",
+    [
+      db.sequelize.fn("AVG", db.sequelize.col("Comments.rating")),
+      "averageRating"
+    ]
+  ],
+  include: [
+    {
+      model: db.Comment,
+      attributes: []
+    }
+  ]
+};
 
 module.exports = function(app) {
-  // Get all project ideas along with their average rating from comments
+  // Get all project ideas along with their average rating from comments,
+  // optionally with a q query parameter to search names and descriptions
   app.get("/api/projects", function(req, res) {
-    db.Project.findAll({
-      group: ["Project.id"],
-      attributes: [
-        "id",
-        "name",
-        "description",
-        "pictureUrl",
-        "visits",
-        [
-          db.sequelize.fn("AVG", db.sequelize.col("Comments.rating")),
-          "averageRating"
+    var findAllParams = Object.assign({}, findDefaults);
+    if (req.query.q) {
+      findAllParams.where = {
+        [Op.or]: [
+          { name: { [Op.like]: "%" + req.query.q + "%" } },
+          { description: { [Op.like]: "%" + req.query.q + "%" } }
         ]
-      ],
-      include: [
-        {
-          model: db.Comment,
-          attributes: []
-        }
-      ]
-    }).then(function(dbProjects) {
+      };
+    }
+    db.Project.findAll(findAllParams).then(function(dbProjects) {
       res.json(dbProjects);
     });
   });
 
   // Get a single project idea along with its average rating from comments
   app.get("/api/projects/:id", function(req, res) {
-    db.Project.findOne({
-      where: {
-        id: req.params.id
-      },
-      group: ["Project.id"],
-      attributes: [
-        "id",
-        "name",
-        "description",
-        "pictureUrl",
-        "visits",
-        [
-          db.sequelize.fn("AVG", db.sequelize.col("Comments.rating")),
-          "averageRating"
-        ]
-      ],
-      include: [
-        {
-          model: db.Comment,
-          attributes: []
-        }
-      ]
-    }).then(function(project) {
+    var findOneParams = Object.assign({}, findDefaults);
+    findOneParams.where = { id: req.params.id };
+    db.Project.findOne(findOneParams).then(function(project) {
       if (project) {
         res.json(project);
       } else {
@@ -63,9 +57,7 @@ module.exports = function(app) {
   // Get a project idea's comments
   app.get("/api/projects/:id/comments", function(req, res) {
     db.Comment.findAll({
-      where: {
-        ProjectId: req.params.id
-      }
+      where: { ProjectId: req.params.id }
     }).then(function(comments) {
       res.json(comments);
     });
