@@ -8,7 +8,7 @@ module.exports = function(app) {
         /*        ^this should be changed
          with the new handlebars page form mooney when done :|
          */
-        msg: "Welcome!",
+        pageTitle: "Ideas R Us",
         projects: dbProjects
         /*variables needed by projects for handlebars
         projects.name
