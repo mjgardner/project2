@@ -1,47 +1,47 @@
 // Get references to page elements
-var $exampleText = $("#example-text");
-var $exampleDescription = $("#example-description");
+var newIdeaName = $("#new-idea-name");
+var $newIdeaDescription = $("#new-idea-description");
 var $submitBtn = $("#submit");
-var $exampleList = $("#example-list");
+var $ideaList = $("#idea-list");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
-  saveExample: function(example) {
+  save: function(example) {
     return $.ajax({
       headers: {
         "Content-Type": "application/json"
       },
       type: "POST",
-      url: "api/examples",
+      url: "api/projects",
       data: JSON.stringify(example)
     });
   },
-  getExamples: function() {
+  get: function() {
     return $.ajax({
-      url: "api/examples",
+      url: "api/projects",
       type: "GET"
     });
   },
-  deleteExample: function(id) {
+  delete: function(id) {
     return $.ajax({
-      url: "api/examples/" + id,
+      url: "api/projects/" + id,
       type: "DELETE"
     });
   }
 };
 
-// refreshExamples gets new examples from the db and repopulates the list
-var refreshExamples = function() {
-  API.getExamples().then(function(data) {
-    var $examples = data.map(function(example) {
+// refreshPage gets new project idea's from the db and repopulates the list
+var refreshPage = function() {
+  API.get().then(function(data) {
+    var $projectList = data.map(function(project) {
       var $a = $("<a>")
-        .text(example.text)
-        .attr("href", "/example/" + example.id);
+        .text(project.name)
+        .attr("href", "/projects/" + project.id);
 
       var $li = $("<li>")
         .attr({
           class: "list-group-item",
-          "data-id": example.id
+          "data-id": project.id
         })
         .append($a);
 
@@ -54,8 +54,8 @@ var refreshExamples = function() {
       return $li;
     });
 
-    $exampleList.empty();
-    $exampleList.append($examples);
+    $ideaList.empty();
+    $ideaList.append($projectList);
   });
 };
 
@@ -65,21 +65,21 @@ var handleFormSubmit = function(event) {
   event.preventDefault();
 
   var example = {
-    text: $exampleText.val().trim(),
-    description: $exampleDescription.val().trim()
+    name: newIdeaName.val().trim(),
+    description: $newIdeaDescription.val().trim()
   };
 
-  if (!(example.text && example.description)) {
-    alert("You must enter an example text and description!");
+  if (!(example.name && example.description)) {
+    alert("You must enter an example name and description!");
     return;
   }
 
-  API.saveExample(example).then(function() {
-    refreshExamples();
+  API.save(example).then(function() {
+    refreshPage();
   });
 
-  $exampleText.val("");
-  $exampleDescription.val("");
+  newIdeaName.val("");
+  $newIdeaDescription.val("");
 };
 
 // handleDeleteBtnClick is called when an example's delete button is clicked
@@ -89,11 +89,11 @@ var handleDeleteBtnClick = function() {
     .parent()
     .attr("data-id");
 
-  API.deleteExample(idToDelete).then(function() {
-    refreshExamples();
+  API.delete(idToDelete).then(function() {
+    refreshPage();
   });
 };
 
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
-$exampleList.on("click", ".delete", handleDeleteBtnClick);
+$ideaList.on("click", ".delete", handleDeleteBtnClick);

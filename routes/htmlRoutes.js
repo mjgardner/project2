@@ -33,17 +33,28 @@ module.exports = function(app) {
         }
       }).then(function(dbComments) {
         // console.log(dbComments);
-        res.render("example", {
-          /*         ^this should be changed
-            with the new handlebars page form mooney when done :|
-            variables needed by comments for handlebars
+        /*variables needed by comments for handlebars
             comments.text
             comments.rating
             comments.authorEmail
+            */
+        //fix for no Comments error
+        if (dbComments === null) {
+          res.render("example", {
+            /*         ^this should be changed
+            with the new handlebars page form mooney when done :|
          */
-          projects: dbProjects,
-          comments: dbComments
-        });
+            projects: dbProjects
+          });
+        } else {
+          res.render("example", {
+            /*         ^this should be changed
+            with the new handlebars page form mooney when done :|
+         */
+            projects: dbProjects,
+            comments: dbComments
+          });
+        }
       });
     });
   });
