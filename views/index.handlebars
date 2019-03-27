@@ -56,10 +56,7 @@
         
         <ul id="idea-list" class="list-group">
           {{#each ideas}}
-          <li data-id="{{this.id}}" class="list-group-item">
-            <a href="project/{{this.id}}">{{this.text}}</a>
-            <button class="btn btn-danger float-right delete">ｘ</button>
-          </li>
+          {{> ideas/idea-card}}
           {{/each}}
         </ul>
       </div>
