@@ -6,7 +6,8 @@ module.exports = {
     password: process.env.MYSQL_PASSWORD,
     database: "exampledb",
     host: "localhost",
-    dialect: "mysql"
+    dialect: "mysql",
+    operatorsAliases: false
   },
   test: {
     username: process.env.MYSQL_USER,
@@ -14,11 +15,13 @@ module.exports = {
     database: "testdb",
     host: "localhost",
     dialect: "mysql",
-    logging: false
+    logging: false,
+    operatorsAliases: false
   },
   production: {
     // eslint-disable-next-line camelcase
     use_env_variable: "JAWSDB_URL",
-    dialect: "mysql"
+    dialect: "mysql",
+    operatorsAliases: false
   }
 };
