@@ -10,8 +10,8 @@ module.exports = {
     operatorsAliases: false
   },
   test: {
-    username: "travis",
-    password: "",
+    username: process.env.MYSQL_USER || "travis",
+    password: process.env.MYSQL_PASSWORD || "",
     database: "testdb",
     host: "localhost",
     dialect: "mysql",
