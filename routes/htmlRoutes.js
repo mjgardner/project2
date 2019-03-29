@@ -40,14 +40,14 @@ module.exports = function(app) {
             */
         //fix for no Comments error
         if (dbComments === null) {
-          res.render("example", {
+          res.render("idea-page", {
             /*         ^this should be changed
             with the new handlebars page form mooney when done :|
          */
             projects: dbProjects
           });
         } else {
-          res.render("example", {
+          res.render("idea-page", {
             /*         ^this should be changed
             with the new handlebars page form mooney when done :|
          */

@@ -4,18 +4,15 @@
 <div id="idea" class="card border-dark mb-3 col-12" style="margin-top:30px">
     
     <div class="card-body text-dark">
-        <h2 class="idea-title">A Really Cool Idea</h2>
-        <h6 class="idea-category" style="margin-bottom:30px">Incredibly Specific Category</h6>
-        <p class="idea-description">Bacon ipsum dolor amet shankle short ribs turducken, hamburger pork loin tri-tip pancetta sirloin short loin alcatra
-        frankfurter kevin strip steak sausage tongue. Ribeye rump pork loin pork kielbasa. Buffalo biltong salami tongue doner.
-        Prosciutto leberkas tenderloin shoulder short ribs corned beef beef chuck sausage tongue. Drumstick pastrami beef, bacon
-        prosciutto boudin strip steak tenderloin rump alcatra frankfurter short ribs filet mignon shankle t-bone. Biltong
-        kielbasa t-bone andouille.</p>
+        
+        <h2 data-id="{{projects.id}}"class="idea-title">{{projects.name}}</h2>
+        <p class="idea-description">{{projects.description}}</p>
     </div>
     </div>
 
     <div class="form-group">
         <label for="comment-form">New Comment</label>
+        <input type="email" id="comment-email" placeholder="Email Address"></input>
         <textarea class="form-control" id="comment-form" rows="5"></textarea>
         <button class="btn btn-primary" for="comment-form" style="margin-top:15px">Submit</button>
     </div>
