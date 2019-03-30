@@ -1,8 +1,7 @@
 <div id="home">
-      {{> ideas/header}}
         <div class="jumbotron jumbotron-fluid">
           <div class="container">
-            <h1 class="display-4 text-center">Cool Idea, Bro</h1>
+            <h1 id="jumbotron-text" class="display-4 text-center">Big Ideas</h1>
             <p class="lead text-center">Submit your coolest ideas!</p>
             <button id="newIdea" class="btn btn-primary center" data-toggle="modal" data-target="#new-idea-modal">New Idea</button>
           </div>
@@ -31,24 +30,22 @@
                     <textarea class="form-control" id="new-idea-description" aria-describedby="new-idea-description"
                       placeholder="Enter Description"></textarea>
                   </div>
-                  <button id="submit" class="btn btn-primary float-right">Submit</button>
                 </form>
               </div>
               <div class="modal-footer">
+                  <button id="submit" class="btn btn-primary float-right">Submit</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
               </div>
             </div>
           </div>
         </div>
 
-        <h3>Project:</h3>
         
-        <ul id="idea-list" class="list-group">
+        <div id="idea-list" class="list-group, grid">
           {{#each projects}}
           {{> ideas/idea-card}}
           {{/each}}
-        </ul>
+        </div>
 
         <a href="/idea">Individual Idea Page</a>
       </div>
