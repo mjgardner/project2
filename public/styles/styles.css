@@ -37,6 +37,7 @@ flex-wrap: wrap;
   margin-bottom: 10px;
 }
 
+
 #search {
   margin-left: auto;
   margin-right: auto;
@@ -45,4 +46,11 @@ flex-wrap: wrap;
 
 #search-box {
   text-align: center
+
+#new-comment-form {
+  margin-top: 150px;
+}
+
+#comment-email {
+  margin-bottom: 10px;
 }
