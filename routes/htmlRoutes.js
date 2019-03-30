@@ -37,9 +37,6 @@ module.exports = function(app) {
     }
     db.Project.findAll(findAllParams).then(function(dbProjects) {
       res.render("index", {
-        /*        ^this should be changed
-         with the new handlebars page form mooney when done :|
-         */
         pageTitle: "Ideas R Us",
         projects: dbProjects
         /*variables needed by projects for handlebars
@@ -61,15 +58,12 @@ module.exports = function(app) {
       }
     }).then(function(dbProjects) {
       res.render("idea-page", {
-        /*         ^this should be changed
-        with the new handlebars page form mooney when done :|
-     */
         projects: dbProjects
       });
     });
   });
 
-  //for later add search function and add Categories/Tags
+  //for later add Categories/Tags
 
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {
