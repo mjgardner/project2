@@ -36,3 +36,11 @@ flex-wrap: wrap;
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+#new-comment-form {
+  margin-top: 150px;
+}
+
+#comment-email {
+  margin-bottom: 10px;
+}

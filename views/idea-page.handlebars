@@ -1,27 +1,32 @@
-<div id="home"></div>
-{{> ideas/header}}
+<div id="home">
 
-<div id="idea" class="card border-dark mb-3 col-12" style="margin-top:30px">
-    
-    <div class="card-body text-dark">
-        
-        <h2 data-id="{{projects.id}}"class="idea-title">{{projects.name}}</h2>
-        <p class="idea-description">{{projects.description}}</p>
-    </div>
+
+    <div id="idea" class="card border-dark mb-3 col-12" style="margin-top:30px">
+
+        <div class="card-body text-dark">
+
+            <h2 data-id="{{projects.id}}" class="idea-title">{{projects.name}}</h2>
+            <p class="idea-description">{{projects.description}}</p>
+        </div>
     </div>
 
-    <div class="form-group">
-        <label for="comment-form">New Comment</label>
-        <input type="email" id="comment-email" placeholder="Email Address"></input>
-        <textarea class="form-control" id="comment-form" rows="5"></textarea>
+    <div class="form-group " id="new-comment-form">
+        <input type="email" id="comment-email" placeholder="Email Address" class="form-row"></input>
+        <textarea class="form-control form-row" id="comment-form" rows="5" style="width: 500px"></textarea>
         <button class="btn btn-primary" for="comment-form" style="margin-top:15px">Submit</button>
     </div>
 
+        <label for="comment-form"><h3><u>Comments</u></h3></label>
     <div class="comment-section">
-    <ul>
-        <li>Comment here</li>
-        <li>Another comment here</li>
-    </ul>
+        {{#each comments}}
+        <div id="comment" class="card border-dark mb-3">
+            <div class="card-body text-dark">
+            
+                <h2 data-id="{{projects.id}}" class="comment-username">{{comments.authorEmail}}</h2>
+                <p class="comment-text">{{comments.text}}</p>
+            </div>
+        </div>
+        {{/each}}
 
     </div>
 
