@@ -4,6 +4,7 @@ var $commentRating = $("#new-comment-rating");
 var $authorEmail = $("#comment-email");
 var $submitBtn = $("#submit");
 var $commentSection = $(".comment-section");
+var btnRating;
 var ID = $(".idea-title").data("id");
 console.log(ID);
 // The API object contains methods for each kind of request we'll make
@@ -26,6 +27,19 @@ var API = {
   }
 };
 
+$(function() {
+  $("#comment-rating").rateYo({
+    numStars: 5,
+    fullStar: true,
+    onSet: function(rating) {
+      console.log(rating);
+      btnRating = rating;
+      console.log("btnRating " + btnRating);
+    }
+  });
+});
+// $("#rateYo").rateYo("option", "ratedFill", "#E74C3C");
+
 // refreshPage gets new project idea's from the db and repopulates the list
 var refreshPage = function() {
   API.get(ID).then(function(data) {
@@ -37,6 +51,7 @@ var refreshPage = function() {
       // $(selector).append(content);
       var mainDiv = $("<div id='comment' class='card border-dark mb-3'>");
       var div = $("<div class='card-body text-dark'>");
+      var commentRating = element.id
       div.append("<img src=" + gravatar + " />");
       div.append(
         "<h2 data-id='ID' class='comment-username'>" +
@@ -44,13 +59,27 @@ var refreshPage = function() {
           " </h2>"
       );
       div.append("<p class='comment-text'>" + element.text + "</p>");
-      div.append("<p>" + element.rating + "</p>");
+      div.append("<div id='" + commentRating +"' style='margin-top: 10px'></div>");
+      
+      ratingForIndivComment(element.rating,commentRating);
       mainDiv.append(div);
+
       $commentSection.append(mainDiv);
       $("#new-comment-form")[0].reset();
     });
   });
 };
+
+var ratingForIndivComment = $(function (rating,comment) {
+  $("#rateYo").rateYo({
+    onInit: function (rating) {
+      console.log();
+    },
+    readOnly: true
+  }),
+
+
+})
 refreshPage();
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
