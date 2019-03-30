@@ -1,5 +1,8 @@
         <div id="idea-card" class="card" style="width: 18rem;" data-id="{{this.id}}">
             <div id="idea-card-body" class="card-body">
+                <button type="button" class="close" aria-label="Close" style="align-self:flex-end">
+                    <span aria-hidden="true">&times;</span>
+                </button>
                 <h5 id="idea-card-title" class="card-title"><a href="project/{{this.id}}">{{this.name}}</a></h5>
                 <p id="idea-card-text" class="card-text">{{this.description}}</p>
             </div>
