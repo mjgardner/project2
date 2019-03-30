@@ -37,9 +37,6 @@ module.exports = function(app) {
     }
     db.Project.findAll(findAllParams).then(function(dbProjects) {
       res.render("index", {
-        /*        ^this should be changed
-         with the new handlebars page form mooney when done :|
-         */
         pageTitle: "Ideas R Us",
         projects: dbProjects
         /*variables needed by projects for handlebars
@@ -51,6 +48,7 @@ module.exports = function(app) {
       });
     });
   });
+
   //send the comments section
   //Load example page and pass in a Project and comments by id ;)
   app.get("/project/:id", function(req, res) {
@@ -59,39 +57,13 @@ module.exports = function(app) {
         id: req.params.id
       }
     }).then(function(dbProjects) {
-      db.Comment.findOne({
-        where: {
-          id: req.params.id
-        }
-      }).then(function(dbComments) {
-        // console.log(dbComments);
-        /*variables needed by comments for handlebars
-            comments.text
-            comments.rating
-            comments.authorEmail
-            */
-        //fix for no Comments error
-        if (dbComments === null) {
-          res.render("idea-page", {
-            /*         ^this should be changed
-            with the new handlebars page form mooney when done :|
-         */
-            projects: dbProjects
-          });
-        } else {
-          res.render("idea-page", {
-            /*         ^this should be changed
-            with the new handlebars page form mooney when done :|
-         */
-            projects: dbProjects,
-            comments: dbComments
-          });
-        }
+      res.render("idea-page", {
+        projects: dbProjects
       });
     });
   });
 
-  //for later add search function and add Categories/Tags
+  //for later add Categories/Tags
 
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {
