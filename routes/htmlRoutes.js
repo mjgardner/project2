@@ -1,9 +1,41 @@
 var db = require("../models");
+/* eslint-env es6 */
+const Op = db.Sequelize.Op;
+
+var findDefaults = {
+  group: ["Project.id"],
+  attributes: [
+    "id",
+    "name",
+    "description",
+    "pictureUrl",
+    "visits",
+    [
+      db.sequelize.fn("AVG", db.sequelize.col("Comments.rating")),
+      "averageRating"
+    ]
+  ],
+  include: [
+    {
+      model: db.Comment,
+      attributes: []
+    }
+  ]
+};
 
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
-    db.Project.findAll({}).then(function(dbProjects) {
+    var findAllParams = Object.assign({}, findDefaults);
+    if (req.query.q) {
+      findAllParams.where = {
+        [Op.or]: [
+          { name: { [Op.like]: "%" + req.query.q + "%" } },
+          { description: { [Op.like]: "%" + req.query.q + "%" } }
+        ]
+      };
+    }
+    db.Project.findAll(findAllParams).then(function(dbProjects) {
       res.render("index", {
         /*        ^this should be changed
          with the new handlebars page form mooney when done :|
