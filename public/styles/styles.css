@@ -3,6 +3,10 @@ body {
   margin-right: 50px;
 }
 
+#home-link {
+  margin-top: 10px;
+}
+
 .jumbotron {
   background-color: white;
   background-size: cover;

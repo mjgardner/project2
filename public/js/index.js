@@ -32,30 +32,36 @@ var API = {
 
 // refreshPage gets new project idea's from the db and repopulates the list
 var refreshPage = function() {
-  API.get().then(function(data) {
-    var $projectList = data.map(function(project) {
-      var $a = $("<a>")
-        .text(project.name)
-        .attr("href", "/projects/" + project.id);
+  API.get().then(function (data) {
+    var newCardData = data[data.length - 1];
 
-      var $li = $("<li>")
-        .attr({
-          class: "list-group-item",
-          "data-id": project.id
-        })
-        .append($a);
+    // var ideaCard =
+    //   "<div id=\"idea-card\" class=\"card\" style=\"width: 18rem;\" data-id=\"" +
+    //   newCardData.id +
+    //   '">';
+    var ideaCard = $("<div>");
+    ideaCard.attr("id", "idea-card");
+    ideaCard.attr("class", "card");
+    ideaCard.attr("style", "width: 18rem");
+    ideaCard.attr("data-id", newCardData.id);
 
-      var $button = $("<button>")
-        .addClass("btn btn-danger float-right delete")
-        .text("ｘ");
 
-      $li.append($button);
+    var ideaCardBody = $("<div>");
+    ideaCardBody.attr("id", "idea-card-body");
+    ideaCardBody.attr("class", "card-body");
+      
 
-      return $li;
-    });
+    var ideaCardHeader = $("<h5>");
+    ideaCardHeader.attr("id", "idea-card-title");
+    ideaCardHeader.attr("class", "card-title");
 
-    $ideaList.empty();
-    $ideaList.append($projectList);
+    ideaCardHeader.append("<a href='project/" + newCardData.id + "'>" + newCardData.name + "</a>");
+
+    ideaCardBody.append(ideaCardHeader);
+    ideaCardBody.append('<p id="idea-card-text" class="card-text">' + newCardData.description + '</p>');
+
+    ideaCard.append(ideaCardBody);
+    $ideaList.append(ideaCard);
   });
 };
 
@@ -87,8 +93,9 @@ var handleFormSubmit = function(event) {
 var handleDeleteBtnClick = function() {
   var idToDelete = $(this)
     .parent()
+    .parent()
     .attr("data-id");
-
+  console.log('hey');
   API.delete(idToDelete).then(function() {
     refreshPage();
   });
@@ -96,4 +103,4 @@ var handleDeleteBtnClick = function() {
 
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
-$ideaList.on("click", ".delete", handleDeleteBtnClick);
+$ideaList.on("click", ".close", handleDeleteBtnClick);
