@@ -38,7 +38,6 @@ $(function() {
     }
   });
 });
-// $("#rateYo").rateYo("option", "ratedFill", "#E74C3C");
 
 // refreshPage gets new project idea's from the db and repopulates the list
 var refreshPage = function() {
