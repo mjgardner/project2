@@ -10,18 +10,24 @@
         </div>
     </div>
 
+    
+
     <div class="form-group " id="new-comment-form">
         <input type="email" id="comment-email" placeholder="Email Address" class="form-row"></input>
         <textarea class="form-control form-row" id="comment-form" rows="5" style="width: 500px"></textarea>
+        <!-- still needs to be handled on submit -->
+        <div id="comment-rating" style="margin-top: 10px"></div>
         <button class="btn btn-primary" for="comment-form" style="margin-top:15px">Submit</button>
     </div>
 
-        <label for="comment-form"><h3><u>Comments</u></h3></label>
+    <label for="comment-form">
+        <h3><u>Comments</u></h3>
+    </label>
     <div class="comment-section">
         {{#each comments}}
         <div id="comment" class="card border-dark mb-3">
             <div class="card-body text-dark">
-            
+
                 <h2 data-id="{{projects.id}}" class="comment-username">{{comments.authorEmail}}</h2>
                 <p class="comment-text">{{comments.text}}</p>
             </div>
@@ -29,5 +35,20 @@
         {{/each}}
 
     </div>
-
 </div>
+
+<script>
+    $(function () {
+
+        $("#comment-rating").rateYo({
+            numStars: 5,
+            fullStar: true,
+            onSet: function (rating, rateYoInstance){
+                console.log(rating);
+            }
+        });
+
+    });
+
+    // $("#rateYo").rateYo("option", "ratedFill", "#E74C3C");
+</script>
