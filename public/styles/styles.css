@@ -36,3 +36,13 @@ flex-wrap: wrap;
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+#search {
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 10px;
+}
+
+#search-box {
+  text-align: center
+}
