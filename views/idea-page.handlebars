@@ -13,14 +13,34 @@
     <form class="form-group" id="new-comment-form">
         <input type="email" id="comment-email" placeholder="Email Address" class="form-row"></input><br>
         <textarea class="form-control form-row" id="comment-form" rows="5" style="width: 500px"></textarea><br>
+                <!-- still needs to be handled on submit -->
+        <div id="comment-rating" style="margin-top: 10px"></div>
         <button id="submit" class="btn btn-primary" for="comment-form" style="margin-top:15px">Submit</button>
     </form>
 
-        <label for="comment-form"><h3><u>Comments</u></h3></label>
+    <label for="comment-form">
+        <h3><u>Comments</u></h3>
+    </label>
     <div class="comment-section">
 
     </div>
+</div>
+
+<script>
+    $(function () {
+
+        $("#comment-rating").rateYo({
+            numStars: 5,
+            fullStar: true,
+            onSet: function (rating, rateYoInstance){
+                console.log(rating);
+            }
+        });
+
+    });
 
 </div>
+    // $("#rateYo").rateYo("option", "ratedFill", "#E74C3C");
+</script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/comment.js"></script>
