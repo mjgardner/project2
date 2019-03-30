@@ -30,6 +30,10 @@ flex-wrap: wrap;
   display: block; margin: auto;
 }
 
+#idea {
+  margin-left: -5px;
+}
+
 #idea-card {
   margin-left: 10px;
   margin-right:10px;
