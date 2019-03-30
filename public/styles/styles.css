@@ -1,7 +1,38 @@
+body {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.jumbotron {
+  background-color: white;
+  background-size: cover;
+  padding-top: 10%;
+  padding-bottom: 10%;
+}
+
+#jumbotron-text {
+  font-family: 'Josefin Sans', sans-serif;
+
+
+}
+
+#idea-list{
+display: flex;
+flex-direction:right;
+flex-wrap: wrap;
+}
+
 .list-group-item {
   line-height: 2.5;
 }
 
 #newIdea {
   display: block; margin: auto;
+}
+
+#idea-card {
+  margin-left: 10px;
+  margin-right:10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
