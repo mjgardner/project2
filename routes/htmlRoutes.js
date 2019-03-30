@@ -52,9 +52,6 @@ module.exports = function(app) {
     });
   });
 
-  app.get("/test/:id", function(req, res) {
-    res.render("example", {});
-  });
   //send the comments section
   //Load example page and pass in a Project and comments by id ;)
   app.get("/project/:id", function(req, res) {
