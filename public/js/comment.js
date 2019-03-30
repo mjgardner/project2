@@ -1,12 +1,11 @@
 // Get references to page elements
 var $commentText = $("#comment-form");
-var $commentRating = $("#new-comment-rating");
 var $authorEmail = $("#comment-email");
 var $submitBtn = $("#submit");
 var $commentSection = $(".comment-section");
 var btnRating;
 var ID = $(".idea-title").data("id");
-console.log(ID);
+
 // The API object contains methods for each kind of request we'll make
 var API = {
   save: function(comment, id) {
@@ -32,9 +31,7 @@ $(function() {
     numStars: 5,
     fullStar: true,
     onSet: function(rating) {
-      console.log(rating);
       btnRating = rating;
-      console.log("btnRating " + btnRating);
     }
   });
 });
@@ -45,12 +42,11 @@ var refreshPage = function() {
     // console.log(data);
     $commentSection.empty();
     data.forEach(function(element) {
-      console.log(element.text);
       var gravatar = getGravatar(element.authorEmail, 70);
       // $(selector).append(content);
       var mainDiv = $("<div id='comment' class='card border-dark mb-3'>");
       var div = $("<div class='card-body text-dark'>");
-      var commentRating = element.id;
+
       div.append("<img src=" + gravatar + " />");
       div.append(
         "<h2 data-id='ID' class='comment-username'>" +
@@ -58,11 +54,9 @@ var refreshPage = function() {
           " </h2>"
       );
       div.append("<p class='comment-text'>" + element.text + "</p>");
-      div.append(
-        "<div id='" + commentRating + "' style='margin-top: 10px'></div>"
-      );
-
-      ratingForIndivComment(element.rating, commentRating);
+      for (var i = 0; i < element.rating; i++) {
+        div.append("<span class='fa fa-star'></span>");
+      }
       mainDiv.append(div);
 
       $commentSection.append(mainDiv);
@@ -71,33 +65,24 @@ var refreshPage = function() {
   });
 };
 
-var ratingForIndivComment = $(function() {
-  $("#rateYo").rateYo({
-    onInit: function() {
-      console.log();
-    },
-    readOnly: true
-  });
-});
-
 refreshPage();
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
 var handleFormSubmit = function(event) {
   event.preventDefault();
 
-  var example = {
+  var comment = {
     text: $commentText.val(),
-    rating: $commentRating.val(),
+    rating: btnRating,
     authorEmail: $authorEmail.val()
   };
 
-  if (!(example.text && example.authorEmail)) {
+  if (!(comment.text && comment.authorEmail)) {
     alert("You must enter an example name and description!");
     return;
   }
 
-  API.save(example, ID).then(function() {
+  API.save(comment, ID).then(function() {
     refreshPage();
   });
 
