@@ -17,6 +17,7 @@
     "express-handlebars": "^3.0.0",
     "jquery-bar-rating": "^1.2.2",
     "mysql2": "^1.6.4",
+    "rateyo": "^2.3.5",
     "rating": "^0.1.0",
     "sequelize": "^4.41.2"
   },
