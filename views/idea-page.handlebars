@@ -7,6 +7,42 @@
 
             <h2 data-id="{{projects.id}}" class="idea-title">{{projects.name}}</h2>
             <p class="idea-description">{{projects.description}}</p>
+            <button class="btn btn-primary" id="editProject" data-toggle="modal" data-target="#edit-idea-modal">Edit</button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="edit-idea-modal" tabindex="-1" role="dialog" aria-labelledby="edit-modal-title"
+    aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="edit-modal-header">Idea Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="clearfix mb-4" method="POST">
+                <input type="hidden" value="{{projects.id}}" id="edit-idea-id">
+                <div class="form-group">
+                    <label for="edit-idea-name">Name</label>
+                    <input type="text" id="edit-idea-name" class="form-control" aria-describedby="edit-idea-name"
+                    placeholder="Enter Name"
+                    value="{{projects.name}}">
+                </div>
+                <div class="form-group">
+                    <label for="edit-idea-description">Description</label>
+                    <textarea class="form-control" id="edit-idea-description" aria-describedby="edit-idea-description"
+                    placeholder="Enter Description">{{projects.description}}</textarea>
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="submitUpdate" class="btn btn-primary float-right">Submit</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            </div>
         </div>
     </div>
     {{!-- for error message  --}}
@@ -28,4 +64,4 @@
     </div>
 </div>
 <script src="/js/comment.js"></script>
-
+<script src="/js/idea-page.js"></script>
