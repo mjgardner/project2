@@ -3,6 +3,10 @@ body {
   margin-right: 50px;
 }
 
+#home-link {
+  padding-top: 30px;
+}
+
 .jumbotron {
   background-color: white;
   background-size: cover;
@@ -28,6 +32,10 @@ flex-wrap: wrap;
 
 #newIdea {
   display: block; margin: auto;
+}
+
+#idea {
+  margin-left: -5px;
 }
 
 #idea-card {
