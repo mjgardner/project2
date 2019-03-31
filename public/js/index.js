@@ -12,19 +12,19 @@ var API = {
         "Content-Type": "application/json"
       },
       type: "POST",
-      url: "api/projects",
+      url: "/api/projects",
       data: JSON.stringify(example)
     });
   },
   get: function() {
     return $.ajax({
-      url: "api/projects",
+      url: "/api/projects",
       type: "GET"
     });
   },
   delete: function(id) {
     return $.ajax({
-      url: "api/projects/" + id,
+      url: "/api/projects/" + id,
       type: "DELETE"
     });
   }
@@ -54,7 +54,7 @@ var refreshPage = function() {
     ideaCardHeader.attr("class", "card-title");
 
     ideaCardHeader.append(
-      "<a href='project/" + newCardData.id + "'>" + newCardData.name + "</a>"
+      "<a href='/project/" + newCardData.id + "'>" + newCardData.name + "</a>"
     );
 
     ideaCardBody.append(ideaCardHeader);
