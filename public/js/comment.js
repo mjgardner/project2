@@ -3,6 +3,7 @@ var $commentText = $("#comment-form");
 var $authorEmail = $("#comment-email");
 var $submitBtn = $("#submit");
 var $commentSection = $(".comment-section");
+var GravatarUserEmailHash;
 var btnRating;
 var ID = $(".idea-title").data("id");
 
@@ -46,10 +47,22 @@ var refreshPage = function() {
       // $(selector).append(content);
       var mainDiv = $("<div id='comment' class='card border-dark mb-3'>");
       var div = $("<div class='card-body text-dark'>");
+      var commentUsername = $("<h2>");
+      commentUsername.attr("data-id", "ID").addClass("comment-username");
+      div.append(commentUsername);
 
       div.append("<img src=" + gravatar + " />");
+      var queryURL =
+        "https://en.gravatar.com/" + GravatarUserEmailHash + ".json";
+
+      $.ajax({
+        url: queryURL,
+        method: "GET"
+      }).then(function(response) {
+        commentUsername.text("User Name: " + response.entry[0].displayName);
+      });
       div.append(
-        "<h2 data-id='ID' class='comment-username'>" +
+        "<h3 data-id='ID' class='comment-username'>" +
           element.authorEmail +
           " </h2>"
       );
@@ -313,6 +326,7 @@ function getGravatar(email, size) {
       V = K(V, g);
     }
     var i = B(Y) + B(X) + B(W) + B(V);
+    GravatarUserEmailHash = i.toLowerCase();
     return i.toLowerCase();
   };
 
