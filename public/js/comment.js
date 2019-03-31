@@ -83,15 +83,26 @@ refreshPage();
 // Save the new example to the db and refresh the list
 var handleFormSubmit = function(event) {
   event.preventDefault();
-
+  //for error message
+  $("#err").empty();
   var comment = {
     text: $commentText.val(),
     rating: btnRating,
     authorEmail: $authorEmail.val()
   };
+  if (ValEmailAddress(comment.authorEmail) !== true) {
+    //for error message
+    $("#err").append(
+      "<h4 style='color:red;'>You must enter a valid email!</h4>"
+    );
+    return;
+  }
 
   if (!(comment.text && comment.authorEmail)) {
-    alert("You must enter an example name and description!");
+    //for error message
+    $("#err").append(
+      "<h4 style='color:red;'>You must enter a name and description!</h4>"
+    );
     return;
   }
 
@@ -105,6 +116,15 @@ var handleFormSubmit = function(event) {
 
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
+
+function ValEmailAddress(emailArr) {
+  var atSymbol = emailArr.indexOf("@");
+  var dot = emailArr.indexOf(".");
+  if (atSymbol < 1 || dot <= atSymbol + 2 || dot === emailArr.length - 1) {
+    return false;
+  }
+  return true;
+}
 
 function getGravatar(email, size) {
   // MD5 (Message-Digest Algorithm) by WebToolkit
