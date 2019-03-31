@@ -32,7 +32,7 @@ var API = {
 
 // refreshPage gets new project idea's from the db and repopulates the list
 var refreshPage = function() {
-  API.get().then(function (data) {
+  API.get().then(function(data) {
     var newCardData = data[data.length - 1];
 
     // var ideaCard =
@@ -45,20 +45,25 @@ var refreshPage = function() {
     ideaCard.attr("style", "width: 18rem");
     ideaCard.attr("data-id", newCardData.id);
 
-
     var ideaCardBody = $("<div>");
     ideaCardBody.attr("id", "idea-card-body");
     ideaCardBody.attr("class", "card-body");
-      
 
     var ideaCardHeader = $("<h5>");
     ideaCardHeader.attr("id", "idea-card-title");
     ideaCardHeader.attr("class", "card-title");
 
-    ideaCardHeader.append("<a href='project/" + newCardData.id + "'>" + newCardData.name + "</a>");
+    ideaCardHeader.append(
+      "<a href='project/" + newCardData.id + "'>" + newCardData.name + "</a>"
+    );
 
     ideaCardBody.append(ideaCardHeader);
-    ideaCardBody.append('<p id="idea-card-text" class="card-text">' + newCardData.description + '</p>');
+    ideaCardBody.append(
+      // eslint-disable-next-line quotes
+      '<p id="idea-card-text" class="card-text">' +
+        newCardData.description +
+        "</p>"
+    );
 
     ideaCard.append(ideaCardBody);
     $ideaList.append(ideaCard);
@@ -95,7 +100,7 @@ var handleDeleteBtnClick = function() {
     .parent()
     .parent()
     .attr("data-id");
-  console.log('hey');
+  console.log("hey");
   API.delete(idToDelete).then(function() {
     refreshPage();
   });
