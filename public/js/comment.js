@@ -1,12 +1,12 @@
 // Get references to page elements
 var $commentText = $("#comment-form");
-var $commentRating = $("#new-comment-rating");
 var $authorEmail = $("#comment-email");
 var $submitBtn = $("#submit");
 var $commentSection = $(".comment-section");
+var GravatarUserEmailHash;
 var btnRating;
 var ID = $(".idea-title").data("id");
-console.log(ID);
+
 // The API object contains methods for each kind of request we'll make
 var API = {
   save: function(comment, id) {
@@ -32,9 +32,7 @@ $(function() {
     numStars: 5,
     fullStar: true,
     onSet: function(rating) {
-      console.log(rating);
       btnRating = rating;
-      console.log("btnRating " + btnRating);
     }
   });
 });
@@ -45,24 +43,33 @@ var refreshPage = function() {
     // console.log(data);
     $commentSection.empty();
     data.forEach(function(element) {
-      console.log(element.text);
       var gravatar = getGravatar(element.authorEmail, 70);
       // $(selector).append(content);
       var mainDiv = $("<div id='comment' class='card border-dark mb-3'>");
       var div = $("<div class='card-body text-dark'>");
-      var commentRating = element.id;
+      var commentUsername = $("<h2>");
+      commentUsername.attr("data-id", "ID").addClass("comment-username");
+      div.append(commentUsername);
+
       div.append("<img src=" + gravatar + " />");
+      var queryURL =
+        "https://en.gravatar.com/" + GravatarUserEmailHash + ".json";
+
+      $.ajax({
+        url: queryURL,
+        method: "GET"
+      }).then(function(response) {
+        commentUsername.text("User Name: " + response.entry[0].displayName);
+      });
       div.append(
-        "<h2 data-id='ID' class='comment-username'>" +
+        "<h3 data-id='ID' class='comment-username'>" +
           element.authorEmail +
           " </h2>"
       );
       div.append("<p class='comment-text'>" + element.text + "</p>");
-      div.append(
-        "<div id='" + commentRating + "' style='margin-top: 10px'></div>"
-      );
-
-      ratingForIndivComment(element.rating, commentRating);
+      for (var i = 0; i < element.rating; i++) {
+        div.append("<span class='fa fa-star'></span>");
+      }
       mainDiv.append(div);
 
       $commentSection.append(mainDiv);
@@ -71,33 +78,35 @@ var refreshPage = function() {
   });
 };
 
-var ratingForIndivComment = $(function() {
-  $("#rateYo").rateYo({
-    onInit: function() {
-      console.log();
-    },
-    readOnly: true
-  });
-});
-
 refreshPage();
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
 var handleFormSubmit = function(event) {
   event.preventDefault();
-
-  var example = {
+  //for error message
+  $("#err").empty();
+  var comment = {
     text: $commentText.val(),
-    rating: $commentRating.val(),
+    rating: btnRating,
     authorEmail: $authorEmail.val()
   };
-
-  if (!(example.text && example.authorEmail)) {
-    alert("You must enter an example name and description!");
+  if (ValEmailAddress(comment.authorEmail) !== true) {
+    //for error message
+    $("#err").append(
+      "<h4 style='color:red;'>You must enter a valid email!</h4>"
+    );
     return;
   }
 
-  API.save(example, ID).then(function() {
+  if (!(comment.text && comment.authorEmail)) {
+    //for error message
+    $("#err").append(
+      "<h4 style='color:red;'>You must enter a name and description!</h4>"
+    );
+    return;
+  }
+
+  API.save(comment, ID).then(function() {
     refreshPage();
   });
 
@@ -107,6 +116,15 @@ var handleFormSubmit = function(event) {
 
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
+
+function ValEmailAddress(emailArr) {
+  var atSymbol = emailArr.indexOf("@");
+  var dot = emailArr.indexOf(".");
+  if (atSymbol < 1 || dot <= atSymbol + 2 || dot === emailArr.length - 1) {
+    return false;
+  }
+  return true;
+}
 
 function getGravatar(email, size) {
   // MD5 (Message-Digest Algorithm) by WebToolkit
@@ -328,6 +346,7 @@ function getGravatar(email, size) {
       V = K(V, g);
     }
     var i = B(Y) + B(X) + B(W) + B(V);
+    GravatarUserEmailHash = i.toLowerCase();
     return i.toLowerCase();
   };
 

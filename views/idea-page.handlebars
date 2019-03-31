@@ -9,7 +9,8 @@
             <p class="idea-description">{{projects.description}}</p>
         </div>
     </div>
-
+    {{!-- for error message  --}}
+<div id="err"></div>
     <form class="form-group" id="new-comment-form">
         <input type="email" id="comment-email" placeholder="Email Address" class="form-row"></input><br>
         <textarea class="form-control form-row" id="comment-form" rows="5" style="width: 500px"></textarea><br>
@@ -20,6 +21,7 @@
 
     <label for="comment-form">
         <h3><u>Comments</u></h3>
+        <div id='rateYo' style='margin-top: 10px'></div>
     </label>
     <div class="comment-section">
 
