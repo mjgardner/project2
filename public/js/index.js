@@ -102,7 +102,7 @@ var handleDeleteBtnClick = function() {
     .attr("data-id");
   console.log("hey");
   API.delete(idToDelete).then(function() {
-    refreshPage();
+    $(parent().parent()).remove();
   });
 };
 
