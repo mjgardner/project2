@@ -3,6 +3,7 @@ var newIdeaName = $("#new-idea-name");
 var $newIdeaDescription = $("#new-idea-description");
 var $submitBtn = $("#submit");
 var $ideaList = $("#idea-list");
+var $deleteBtn = $("#delete-button")
 
 // The API object contains methods for each kind of request we'll make
 var API = {
@@ -35,10 +36,6 @@ var refreshPage = function() {
   API.get().then(function(data) {
     var newCardData = data[data.length - 1];
 
-    // var ideaCard =
-    //   "<div id=\"idea-card\" class=\"card\" style=\"width: 18rem;\" data-id=\"" +
-    //   newCardData.id +
-    //   '">';
     var ideaCard = $("<div>");
     ideaCard.attr("id", "idea-card");
     ideaCard.attr("class", "card");
@@ -98,14 +95,13 @@ var handleFormSubmit = function(event) {
 var handleDeleteBtnClick = function() {
   var idToDelete = $(this)
     .parent()
-    .parent()
     .attr("data-id");
-  console.log("hey");
+  console.log(idToDelete);
   API.delete(idToDelete).then(function() {
-    $(parent().parent()).remove();
+    console.log('deleted');
   });
 };
 
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
-$ideaList.on("click", ".close", handleDeleteBtnClick);
+$deleteBtn.on("click", handleDeleteBtnClick);

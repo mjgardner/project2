@@ -3,8 +3,16 @@ body {
   margin-right: 50px;
 }
 
-#home-link {
+#header-links {
   padding-top: 30px;
+}
+
+#home-link {
+  text-align: left;
+}
+
+#delete-link {
+  text-align: right;
 }
 
 .jumbotron {
