@@ -35,10 +35,6 @@ var refreshPage = function() {
   API.get().then(function(data) {
     var newCardData = data[data.length - 1];
 
-    // var ideaCard =
-    //   "<div id=\"idea-card\" class=\"card\" style=\"width: 18rem;\" data-id=\"" +
-    //   newCardData.id +
-    //   '">';
     var ideaCard = $("<div>");
     ideaCard.attr("id", "idea-card");
     ideaCard.attr("class", "card");
@@ -95,17 +91,7 @@ var handleFormSubmit = function(event) {
 
 // handleDeleteBtnClick is called when an example's delete button is clicked
 // Remove the example from the db and refresh the list
-var handleDeleteBtnClick = function() {
-  var idToDelete = $(this)
-    .parent()
-    .parent()
-    .attr("data-id");
-  console.log("hey");
-  API.delete(idToDelete).then(function() {
-    refreshPage();
-  });
-};
+
 
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
-$ideaList.on("click", ".close", handleDeleteBtnClick);
