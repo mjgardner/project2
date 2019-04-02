@@ -35,9 +35,9 @@ var handleDeleteBtnClick = function () {
     .attr("data-id");
   console.log(idToDelete);
   $.ajax({
-    url: "/api/projects/" + idToDelete,
-    type: "DELETE"
-  });
+      url: "/api/projects/" + idToDelete,
+      type: "DELETE"
+  }).then(window.location.replace("/"));
     console.log('deleted');
 };
 

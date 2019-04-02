@@ -3,17 +3,12 @@
     <div id="home-link">
     <a href="/">Back to Home</a>
     </div>
-    
-    <div id="edit-link">
+
+    <div id="edit-delete-links" data-id="{{projects.id}}">
+        <button id="editProject" class="btn btn-primary" data-toggle="modal" data-target="#edit-idea-modal">Edit</button>
+        <button id="delete-modal" class="btn btn-primary" data-toggle="modal" data-target="#delete-idea-modal">Delete</button>
     </div>
 
-    <div id="delete-link" data-id="{{projects.id}}">
-        <button id="edit-button" class="btn btn-primary" data-toggle="modal" data-target="#edit-idea-modal">Edit</button>
-        <button id="delete-button" class="btn btn-primary">Delete</button>
-    </div>
-
-    
-    </div>
     <div id="idea" class="card border-dark mb-3 col-12" style="margin-top:30px">
 
         <div class="card-body text-dark">
@@ -23,7 +18,23 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Delete Modal -->
+    <div class="modal fade" id="delete-idea-modal" tabindex="-1" role="dialog" aria-labelledby="delete-modal-title"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="edit-modal-header">Would you like to delete this idea?</h5>
+                <div class="modal-footer" data-id="{{projects.id}}">
+                    <button id="delete-button" class="btn btn-primary float-right">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+</div>
+</div>
+
+    <!-- Edit Modal -->
     <div class="modal fade" id="edit-idea-modal" tabindex="-1" role="dialog" aria-labelledby="edit-modal-title"
     aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
