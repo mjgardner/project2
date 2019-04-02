@@ -29,16 +29,16 @@ var handleEditFormSubmit = function(event) {
   });
 };
 
-var handleDeleteBtnClick = function () {
+var handleDeleteBtnClick = function() {
   var idToDelete = $(this)
     .parent()
     .attr("data-id");
   console.log(idToDelete);
   $.ajax({
-      url: "/api/projects/" + idToDelete,
-      type: "DELETE"
+    url: "/api/projects/" + idToDelete,
+    type: "DELETE"
   }).then(window.location.replace("/"));
-    console.log('deleted');
+  console.log("deleted");
 };
 
 $submitBtn.on("click", handleEditFormSubmit);

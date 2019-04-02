@@ -92,6 +92,5 @@ var handleFormSubmit = function(event) {
 // handleDeleteBtnClick is called when an example's delete button is clicked
 // Remove the example from the db and refresh the list
 
-
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
