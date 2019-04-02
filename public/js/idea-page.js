@@ -3,6 +3,7 @@ var $editIdeaName = $("#edit-idea-name");
 var $editIdeaDescription = $("#edit-idea-description");
 var $editIdeaId = $("#edit-idea-id");
 var $editIdeaModal = $("#edit-idea-modal");
+var $deleteBtn = $("#delete-button");
 
 var handleEditFormSubmit = function(event) {
   event.preventDefault();
@@ -28,4 +29,17 @@ var handleEditFormSubmit = function(event) {
   });
 };
 
+var handleDeleteBtnClick = function () {
+  var idToDelete = $(this)
+    .parent()
+    .attr("data-id");
+  console.log(idToDelete);
+  $.ajax({
+    url: "/api/projects/" + idToDelete,
+    type: "DELETE"
+  });
+    console.log('deleted');
+};
+
 $submitBtn.on("click", handleEditFormSubmit);
+$deleteBtn.on("click", handleDeleteBtnClick);

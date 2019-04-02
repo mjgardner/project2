@@ -3,10 +3,16 @@
     <div id="home-link">
     <a href="/">Back to Home</a>
     </div>
+    
+    <div id="edit-link">
+    </div>
 
     <div id="delete-link" data-id="{{projects.id}}">
-        <button id="delete-button" class="btn btn-primary">Delete Idea</button>
+        <button id="edit-button" class="btn btn-primary" data-toggle="modal" data-target="#edit-idea-modal">Edit</button>
+        <button id="delete-button" class="btn btn-primary">Delete</button>
     </div>
+
+    
     </div>
     <div id="idea" class="card border-dark mb-3 col-12" style="margin-top:30px">
 
@@ -14,7 +20,6 @@
 
             <h2 data-id="{{projects.id}}" class="idea-title">{{projects.name}}</h2>
             <p class="idea-description">{{projects.description}}</p>
-            <button class="btn btn-primary" id="editProject" data-toggle="modal" data-target="#edit-idea-modal">Edit</button>
         </div>
     </div>
 

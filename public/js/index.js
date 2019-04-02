@@ -3,7 +3,6 @@ var newIdeaName = $("#new-idea-name");
 var $newIdeaDescription = $("#new-idea-description");
 var $submitBtn = $("#submit");
 var $ideaList = $("#idea-list");
-var $deleteBtn = $("#delete-button")
 
 // The API object contains methods for each kind of request we'll make
 var API = {
@@ -92,16 +91,7 @@ var handleFormSubmit = function(event) {
 
 // handleDeleteBtnClick is called when an example's delete button is clicked
 // Remove the example from the db and refresh the list
-var handleDeleteBtnClick = function() {
-  var idToDelete = $(this)
-    .parent()
-    .attr("data-id");
-  console.log(idToDelete);
-  API.delete(idToDelete).then(function() {
-    console.log('deleted');
-  });
-};
+
 
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
-$deleteBtn.on("click", handleDeleteBtnClick);
